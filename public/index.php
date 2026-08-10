@@ -1,5 +1,5 @@
 <?php
-// Lab 2 - Render automatic deployment test
+// Lab 2 - Render automatic deployment Test
 define('PREVENT_DIRECT_ACCESS', TRUE);
 /**
  * ------------------------------------------------------------------
