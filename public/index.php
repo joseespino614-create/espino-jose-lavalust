@@ -1,4 +1,5 @@
 <?php
+// Lab 2 - Render automatic deployment test
 define('PREVENT_DIRECT_ACCESS', TRUE);
 /**
  * ------------------------------------------------------------------
@@ -83,6 +84,6 @@ define('PUBLIC_DIR', $public_folder);
  * Setup done? Then Hurray!
  * ------------------------------------------------------
  */
-// Lab 2 - Render automatic deployment test
+
 require_once SYSTEM_DIR . 'kernel/LavaLust.php';
 ?>
