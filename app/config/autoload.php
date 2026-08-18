@@ -80,7 +80,7 @@ $autoload['libraries'] = array('session');
 | -------------------------------------------------------------------
 | Prototype:
 |
-|	$autoload['helpers'] = array('url', 'file');
+|	$autoload['helpers'] = array('url', 'file')
 */
 $autoload['helpers'] = array('url');
 
