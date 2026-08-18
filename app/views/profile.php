@@ -306,8 +306,8 @@
     </div>
 
     <div>
-        <a href="/LavaLust/student">Home</a>
-        <a href="/LavaLust/student/profile">Profile</a>
+        <a href="<?= site_url('student') ?>">Home</a>
+        <a href="<?= site_url('student/profile') ?>">Profile</a>
     </div>
 
 </nav>
@@ -446,7 +446,7 @@
     </div>
 
 
-    <a class="back" href="/LavaLust/student">
+    <a class="back" href="<?= site_url('student') ?>">
         ← Back to Home
     </a>    
 

@@ -219,8 +219,8 @@
     </div>
 
     <div>
-        <a href="/LavaLust/student">Home</a>
-        <a href="/LavaLust/student/profile">Profile</a>
+        <a href="<?= site_url('student') ?>">Home</a>
+        <a href="<?= site_url('student/profile') ?>">Profile</a>
     </div>
 
 </nav>
@@ -245,11 +245,11 @@
 
         <div class="buttons">
 
-            <a class="btn primary" href="/LavaLust/student/profile">
+            <a class="btn primary" href="<?= site_url('student/profile') ?>">
                 View My Profile →
             </a>
 
-            <a class="btn secondary" href="/LavaLust/student/profile">
+            <a class="btn secondary" href="<?= site_url('student/profile') ?>">
                 Student Details
             </a>
 
