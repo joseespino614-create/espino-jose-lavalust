@@ -237,6 +237,9 @@
             <a class="btn secondary" href="<?= site_url('student/profile') ?>">
                 Student Details
             </a>
+            <a class="btn secondary" href="<?= site_url('users') ?>">
+                Users List
+            </a>
 
         </div>
 
