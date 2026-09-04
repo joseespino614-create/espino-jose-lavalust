@@ -194,7 +194,6 @@
 
 <body>
 <?php if (isset($_SESSION['middleware_message'])): ?>
-
     <div style="
         width: 84%;
         max-width: 1100px;
@@ -208,47 +207,33 @@
     ">
         <?= $_SESSION['middleware_message']; ?>
     </div>
-
     <?php unset($_SESSION['middleware_message']); ?>
-
 <?php endif; ?>
 <nav>
-
     <div class="logo">
         JOWSEEWHY
     </div>
-
     <div>
         <a href="<?= site_url('student') ?>">Home</a>
         <a href="<?= site_url('student/profile') ?>">Profile</a>
     </div>
-
 </nav>
-
-
 <section class="hero">
-
     <div>
-
         <div class="tag">
             CY
         </div>
-
         <h1>
             ILOVE<br>
             <span>JOWSEEWHY</span>
         </h1>
-
         <p class="description">
             A quick look at my student information and contact details.
         </p>
-
         <div class="buttons">
-
             <a class="btn primary" href="<?= site_url('student/profile') ?>">
                 View My Profile →
             </a>
-
             <a class="btn secondary" href="<?= site_url('student/profile') ?>">
                 Student Details
             </a>
