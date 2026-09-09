@@ -21,85 +21,17 @@
             min-height: 100vh;
         }
 
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* SIDEBAR */
-
-        .sidebar {
-            width: 240px;
-            background: #111118;
-            border-right: 1px solid #252530;
-            color: white;
-            padding: 25px 15px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .menu-title {
-            font-size: 11px;
-            color: #666;
-            margin: 25px 10px 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .sidebar a {
-            display: block;
-            color: #999;
-            text-decoration: none;
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 5px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #151922;
-            color: #2589ff;
-            border: 1px solid #303947;
-        }
-
-        /* SIDEBAR BOTTOM */
-
-        .sidebar-bottom {
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 1px solid #292933;
-        }
-
-        .student-home {
-            color: #ffffff !important;
-        }
-
-        .student-home:hover {
-            color: #2589ff !important;
-        }
-
         /* MAIN */
 
         .main {
-            margin-left: 240px;
-            width: calc(100% - 240px);
+            width: 100%;
             padding: 50px;
         }
 
         .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
         }
 
@@ -112,6 +44,26 @@
             color: #999;
             margin-top: 8px;
             font-size: 15px;
+        }
+
+        /* BACK BUTTON */
+
+        .back-button {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #33333d;
+            text-decoration: none;
+            padding: 13px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            border-color: #2589ff;
+            color: #2589ff;
+            transform: translateY(-2px);
         }
 
         /* FORM CARD */
@@ -211,13 +163,7 @@
 
         @media (max-width: 768px) {
 
-            .sidebar {
-                width: 200px;
-            }
-
             .main {
-                margin-left: 200px;
-                width: calc(100% - 200px);
                 padding: 30px 20px;
             }
 
@@ -234,22 +180,15 @@
 
         @media (max-width: 600px) {
 
-            .layout {
-                display: block;
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
             }
 
-            .sidebar {
-                position: relative;
+            .back-button {
                 width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 1px solid #252530;
-            }
-
-            .main {
-                margin-left: 0;
-                width: 100%;
-                padding: 30px 20px;
+                text-align: center;
             }
 
             .buttons {
@@ -261,10 +200,6 @@
                 width: 100%;
                 text-align: center;
             }
-
-            .sidebar-bottom {
-                margin-top: 20px;
-            }
         }
     </style>
 
@@ -272,55 +207,29 @@
 
 <body>
 
-<div class="layout">
-
-    <!-- SIDEBAR -->
-
-    <aside class="sidebar">
-
-        <div class="logo">
-            Product System
-        </div>
-
-        <div class="menu-title">
-            Main
-        </div>
-
-        <a href="<?= site_url('products'); ?>">
-            📦 Products
-        </a>
-
-        <a href="<?= site_url('products/create'); ?>">
-            ➕ Add Product
-        </a>
-
-
-        <!-- BOTTOM NAVIGATION -->
-
-        <div class="sidebar-bottom">
-
-            <a href="<?= site_url('student'); ?>" class="student-home">
-                🏠 Student Home
-            </a>
-
-        </div>
-
-    </aside>
-
-
     <!-- MAIN -->
 
     <main class="main">
 
         <div class="topbar">
 
-            <h1>
-                Edit Product
-            </h1>
+            <div>
 
-            <p>
-                Update the information of this product.
-            </p>
+                <h1>
+                    Edit Product
+                </h1>
+
+                <p>
+                    Update the information of this product.
+                </p>
+
+            </div>
+
+            <a
+                href="<?= site_url('products'); ?>"
+                class="back-button">
+                ← Back
+            </a>
 
         </div>
 
@@ -419,8 +328,6 @@
         </div>
 
     </main>
-
-</div>
 
 </body>
 
