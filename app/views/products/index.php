@@ -15,9 +15,10 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0d0d12;
+            color: #f5f5f5;
+            min-height: 100vh;
         }
 
         .layout {
@@ -29,7 +30,8 @@
 
         .sidebar {
             width: 240px;
-            background: #1e293b;
+            background: #111118;
+            border-right: 1px solid #252530;
             color: white;
             padding: 25px 15px;
             position: fixed;
@@ -39,33 +41,36 @@
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 35px;
         }
 
         .menu-title {
-            font-size: 12px;
-            color: #94a3b8;
-            margin: 20px 10px 8px;
+            font-size: 11px;
+            color: #666;
+            margin: 25px 10px 10px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .sidebar a {
             display: block;
-            color: #cbd5e1;
+            color: #999;
             text-decoration: none;
             padding: 12px 15px;
             border-radius: 8px;
             margin-bottom: 5px;
-            transition: 0.2s;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #2563eb;
-            color: white;
+            background: #151922;
+            color: #2589ff;
+            border: 1px solid #303947;
         }
 
         /* MAIN CONTENT */
@@ -73,44 +78,50 @@
         .main {
             margin-left: 240px;
             width: calc(100% - 240px);
-            padding: 30px;
+            padding: 50px;
         }
 
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .topbar h1 {
-            font-size: 28px;
+            font-size: 42px;
+            letter-spacing: -1px;
         }
 
         .add-button {
-            background: #2563eb;
-            color: white;
+            background: #ffffff;
+            color: #0d0d12;
             text-decoration: none;
-            padding: 11px 18px;
-            border-radius: 7px;
+            padding: 13px 20px;
+            border-radius: 8px;
             font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
         .add-button:hover {
-            background: #1d4ed8;
+            background: #2589ff;
+            color: #ffffff;
+            transform: translateY(-2px);
         }
 
         /* CARD */
 
         .card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            background: #15151d;
+            border: 1px solid #292933;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         }
 
         .card-header {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .card-header h2 {
@@ -118,37 +129,55 @@
         }
 
         .card-header p {
-            color: #64748b;
-            margin-top: 5px;
+            color: #999;
+            margin-top: 7px;
+            font-size: 14px;
         }
 
         /* TABLE */
 
         .table-wrapper {
             overflow-x: auto;
+            border: 1px solid #292933;
+            border-radius: 12px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 850px;
         }
 
         th,
         td {
-            padding: 14px;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 15px;
+            border-bottom: 1px solid #292933;
             text-align: left;
         }
 
         th {
-            background: #f8fafc;
-            font-size: 13px;
+            background: #111118;
+            font-size: 11px;
             text-transform: uppercase;
-            color: #475569;
+            letter-spacing: 1px;
+            color: #777;
         }
 
-        tr:hover {
-            background: #f8fafc;
+        td {
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr {
+            transition: 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #191922;
         }
 
         /* ACTION BUTTONS */
@@ -158,30 +187,58 @@
             gap: 8px;
         }
 
-        .edit {
-            background: #f59e0b;
-            color: white;
+        .edit,
+        .delete {
             padding: 7px 12px;
-            border-radius: 5px;
+            border-radius: 6px;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .edit {
+            background: #151922;
+            color: #2589ff;
+            border: 1px solid #303947;
         }
 
         .delete {
-            background: #dc2626;
-            color: white;
-            padding: 7px 12px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 13px;
+            background: #211518;
+            color: #ff6b6b;
+            border: 1px solid #4a2727;
         }
 
         .edit:hover {
-            background: #d97706;
+            background: #2589ff;
+            color: #ffffff;
+            border-color: #2589ff;
         }
 
         .delete:hover {
-            background: #b91c1c;
+            background: #8b3030;
+            color: #ffffff;
+            border-color: #8b3030;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 18px;
+            margin-right: 10px;
+            background: transparent;
+            border: 1px solid #33333d;
+            color: #ffffff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            border-color: #2589ff;
+            color: #2589ff;
+            transform: translateY(-2px);
         }
 
         /* MOBILE */
@@ -195,13 +252,51 @@
             .main {
                 margin-left: 200px;
                 width: calc(100% - 200px);
-                padding: 20px;
+                padding: 30px 20px;
             }
 
             .topbar {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
+                gap: 18px;
+            }
+
+            .topbar h1 {
+                font-size: 34px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #252530;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 30px 20px;
+            }
+
+            .add-button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .card {
+                padding: 18px;
             }
         }
     </style>
@@ -210,161 +305,168 @@
 
 <body>
 
-<div class="layout">
+    <div class="layout">
 
-    <!-- SIDEBAR -->
+        <!-- SIDEBAR -->
 
-    <aside class="sidebar">
+        <aside class="sidebar">
 
-        <div class="logo">
-            Product System
-        </div>
-
-        <div class="menu-title">
-            Main
-        </div>
-
-        <a href="<?= site_url('products'); ?>" class="active">
-            📦 Products
-        </a>
-
-        <a href="<?= site_url('products/create'); ?>">
-            ➕ Add Product
-        </a>
-
-        <div class="menu-title">
-            System
-        </div>
-
-        <a href="#">
-            👤 Users
-        </a>
-
-        <a href="#">
-            ⚙️ Settings
-        </a>
-
-        <a href="#">
-            🚪 Logout
-        </a>
-
-    </aside>
-
-
-    <!-- MAIN CONTENT -->
-
-    <main class="main">
-
-        <div class="topbar">
-
-            <div>
-                <h1>Products</h1>
+            <div class="logo">
+                Product System
             </div>
 
-            <a href="<?= site_url('products/create'); ?>" class="add-button">
-                + Add Product
+            <div class="menu-title">
+                Main
+            </div>
+
+            <a href="<?= site_url('products'); ?>" class="active">
+                📦 Products
             </a>
 
-        </div>
+            <a href="<?= site_url('products/create'); ?>">
+                ➕ Add Product
+            </a>
+
+            <div class="menu-title">
+                System
+            </div>
+
+            <a href="#">
+                👤 Users
+            </a>
+
+            <a href="#">
+                ⚙️ Settings
+            </a>
+
+            <a href="#">
+                🚪 Logout
+            </a>
+
+        </aside>
 
 
-        <div class="card">
+        <!-- MAIN CONTENT -->
 
-            <div class="card-header">
+        <main class="main">
 
-                <h2>Product Management</h2>
+            <div class="topbar">
 
-                <p>
-                    Manage your products, inventory, prices and quantities.
-                </p>
+                <div>
+                    <h1>
+                        Products
+                    </h1>
+                </div>
+
+                <a href="<?= site_url('products/create'); ?>" class="add-button">
+                    + Add Product
+                </a>
+                <a href="<?= site_url('student'); ?>" class="back-button">
+                    ← Student Home
+                </a>
+
+                <a href="<?= site_url('products/create'); ?>" class="add-button">
+                    + Add Product
+                </a>
 
             </div>
 
 
-            <div class="table-wrapper">
+            <div class="card">
 
-                <table>
+                <div class="card-header">
 
-                    <thead>
+                    <h2>
+                        Product Management
+                    </h2>
 
-                        <tr>
-                            <th>ID</th>
-                            <th>Product Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Created</th>
-                            <th>Actions</th>
-                        </tr>
+                    <p>
+                        Manage your products, inventory, prices and quantities.
+                    </p>
 
-                    </thead>
+                </div>
 
-                    <tbody>
 
-                    <?php foreach ($products as $product): ?>
+                <div class="table-wrapper">
 
-                        <tr>
+                    <table>
 
-                            <td>
-                                <?= htmlspecialchars($product['id']) ?>
-                            </td>
+                        <thead>
 
-                            <td>
-                                <?= htmlspecialchars($product['product_name']) ?>
-                            </td>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
 
-                            <td>
-                                <?= htmlspecialchars($product['description']) ?>
-                            </td>
+                        </thead>
 
-                            <td>
-                                ₱<?= htmlspecialchars($product['price']) ?>
-                            </td>
+                        <tbody>
 
-                            <td>
-                                <?= htmlspecialchars($product['quantity']) ?>
-                            </td>
+                            <?php foreach ($products as $product): ?>
 
-                            <td>
-                                <?= htmlspecialchars($product['created_at']) ?>
-                            </td>
+                                <tr>
 
-                            <td>
+                                    <td>
+                                        <?= htmlspecialchars($product['id']) ?>
+                                    </td>
 
-                                <div class="actions">
+                                    <td>
+                                        <?= htmlspecialchars($product['product_name']) ?>
+                                    </td>
 
-                                    <a
-                                        href="<?= site_url('products/edit/' . $product['id']); ?>"
-                                        class="edit">
-                                        Edit
-                                    </a>
+                                    <td>
+                                        <?= htmlspecialchars($product['description']) ?>
+                                    </td>
 
-                                    <a
-                                        href="<?= site_url('products/delete/' . $product['id']); ?>"
-                                        class="delete"
-                                        onclick="return confirm('Are you sure you want to delete this product?');">
-                                        Delete
-                                    </a>
+                                    <td>
+                                        ₱<?= htmlspecialchars($product['price']) ?>
+                                    </td>
 
-                                </div>
+                                    <td>
+                                        <?= htmlspecialchars($product['quantity']) ?>
+                                    </td>
 
-                            </td>
+                                    <td>
+                                        <?= htmlspecialchars($product['created_at']) ?>
+                                    </td>
 
-                        </tr>
+                                    <td>
 
-                    <?php endforeach; ?>
+                                        <div class="actions">
 
-                    </tbody>
+                                            <a href="<?= site_url('products/edit/' . $product['id']); ?>" class="edit">
+                                                Edit
+                                            </a>
 
-                </table>
+                                            <a href="<?= site_url('products/delete/' . $product['id']); ?>" class="delete"
+                                                onclick="return confirm('Are you sure you want to delete this product?');">
+                                                Delete
+                                            </a>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            <?php endforeach; ?>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 
-        </div>
+        </main>
 
-    </main>
-
-</div>
+    </div>
 
 </body>
 

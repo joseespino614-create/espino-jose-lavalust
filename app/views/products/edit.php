@@ -15,9 +15,10 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f9;
-            color: #333;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0d0d12;
+            color: #f5f5f5;
+            min-height: 100vh;
         }
 
         .layout {
@@ -29,7 +30,8 @@
 
         .sidebar {
             width: 240px;
-            background: #1e293b;
+            background: #111118;
+            border-right: 1px solid #252530;
             color: white;
             padding: 25px 15px;
             position: fixed;
@@ -39,32 +41,36 @@
         }
 
         .logo {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 35px;
         }
 
         .menu-title {
-            font-size: 12px;
-            color: #94a3b8;
-            margin: 20px 10px 8px;
+            font-size: 11px;
+            color: #666;
+            margin: 25px 10px 10px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .sidebar a {
             display: block;
-            color: #cbd5e1;
+            color: #999;
             text-decoration: none;
             padding: 12px 15px;
             border-radius: 8px;
             margin-bottom: 5px;
+            font-size: 14px;
+            transition: 0.3s;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #2563eb;
-            color: white;
+            background: #151922;
+            color: #2589ff;
+            border: 1px solid #303947;
         }
 
         /* MAIN */
@@ -72,98 +78,121 @@
         .main {
             margin-left: 240px;
             width: calc(100% - 240px);
-            padding: 30px;
+            padding: 50px;
         }
 
         .topbar {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .topbar h1 {
-            font-size: 28px;
+            font-size: 42px;
+            letter-spacing: -1px;
         }
 
         .topbar p {
-            color: #64748b;
-            margin-top: 5px;
+            color: #999;
+            margin-top: 8px;
+            font-size: 15px;
         }
 
-        /* FORM */
+        /* FORM CARD */
 
         .card {
-            background: white;
+            background: #15151d;
+            border: 1px solid #292933;
             max-width: 800px;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         label {
             display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
+            color: #777;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 9px;
         }
 
         input,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 7px;
-            font-size: 15px;
-        }
-
-        textarea {
-            min-height: 120px;
-            resize: vertical;
+            padding: 13px 15px;
+            background: #0d0d12;
+            color: #f5f5f5;
+            border: 1px solid #33333d;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            transition: 0.3s;
         }
 
         input:focus,
         textarea:focus {
             outline: none;
-            border-color: #2563eb;
+            border-color: #2589ff;
+            box-shadow: 0 0 0 2px rgba(37, 137, 255, 0.08);
         }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        /* BUTTONS */
 
         .buttons {
             display: flex;
             gap: 10px;
-            margin-top: 25px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #292933;
         }
 
         button,
         .cancel {
-            padding: 12px 20px;
-            border-radius: 7px;
+            padding: 13px 22px;
+            border-radius: 8px;
             border: none;
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
             font-size: 14px;
+            transition: 0.3s;
         }
 
         button {
-            background: #2563eb;
-            color: white;
+            background: #ffffff;
+            color: #0d0d12;
         }
 
         button:hover {
-            background: #1d4ed8;
+            background: #2589ff;
+            color: #ffffff;
+            transform: translateY(-2px);
         }
 
         .cancel {
-            background: #64748b;
+            border: 1px solid #33333d;
             color: white;
+            background: transparent;
         }
 
         .cancel:hover {
-            background: #475569;
+            border-color: #2589ff;
+            color: #2589ff;
         }
 
+        /* TABLET */
+
         @media (max-width: 768px) {
+
             .sidebar {
                 width: 200px;
             }
@@ -171,7 +200,48 @@
             .main {
                 margin-left: 200px;
                 width: calc(100% - 200px);
-                padding: 20px;
+                padding: 30px 20px;
+            }
+
+            .topbar h1 {
+                font-size: 34px;
+            }
+
+            .card {
+                padding: 25px;
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #252530;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 30px 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            button,
+            .cancel {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -227,7 +297,9 @@
 
         <div class="topbar">
 
-            <h1>Edit Product</h1>
+            <h1>
+                Edit Product
+            </h1>
 
             <p>
                 Update the information of this product.
@@ -335,4 +407,4 @@
 
 </body>
 
-</html> 
+</html>
