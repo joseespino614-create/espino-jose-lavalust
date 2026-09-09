@@ -38,6 +38,9 @@
             left: 0;
             top: 0;
             bottom: 0;
+
+            display: flex;
+            flex-direction: column;
         }
 
         .logo {
@@ -71,6 +74,22 @@
             background: #151922;
             color: #2589ff;
             border: 1px solid #303947;
+        }
+
+        /* SIDEBAR BOTTOM */
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #292933;
+        }
+
+        .student-home {
+            color: #ffffff !important;
+        }
+
+        .student-home:hover {
+            color: #2589ff !important;
         }
 
         /* MAIN CONTENT */
@@ -221,26 +240,6 @@
             border-color: #8b3030;
         }
 
-        .back-button {
-            display: inline-block;
-            padding: 12px 18px;
-            margin-right: 10px;
-            background: transparent;
-            border: 1px solid #33333d;
-            color: #ffffff;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .back-button:hover {
-            border-color: #2589ff;
-            color: #2589ff;
-            transform: translateY(-2px);
-        }
-
         /* MOBILE */
 
         @media (max-width: 768px) {
@@ -298,6 +297,10 @@
             .card {
                 padding: 18px;
             }
+
+            .sidebar-bottom {
+                margin-top: 20px;
+            }
         }
     </style>
 
@@ -339,9 +342,20 @@
                 ⚙️ Settings
             </a>
 
-            <a href="#">
-                🚪 Logout
-            </a>
+
+            <!-- BOTTOM NAVIGATION -->
+
+            <div class="sidebar-bottom">
+
+                <a href="<?= site_url('student'); ?>" class="student-home">
+                    🏠 Student Home
+                </a>
+
+                <a href="#">
+                    🚪 Logout
+                </a>
+
+            </div>
 
         </aside>
 
@@ -357,13 +371,6 @@
                         Products
                     </h1>
                 </div>
-
-                <a href="<?= site_url('products/create'); ?>" class="add-button">
-                    + Add Product
-                </a>
-                <a href="<?= site_url('student'); ?>" class="back-button">
-                    ← Student Home
-                </a>
 
                 <a href="<?= site_url('products/create'); ?>" class="add-button">
                     + Add Product
@@ -443,7 +450,8 @@
                                                 Edit
                                             </a>
 
-                                            <a href="<?= site_url('products/delete/' . $product['id']); ?>" class="delete"
+                                            <a href="<?= site_url('products/delete/' . $product['id']); ?>"
+                                                class="delete"
                                                 onclick="return confirm('Are you sure you want to delete this product?');">
                                                 Delete
                                             </a>
