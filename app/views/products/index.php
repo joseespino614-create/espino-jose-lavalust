@@ -38,7 +38,6 @@
             left: 0;
             top: 0;
             bottom: 0;
-
             display: flex;
             flex-direction: column;
         }
@@ -330,18 +329,6 @@
                 ➕ Add Product
             </a>
 
-            <div class="menu-title">
-                System
-            </div>
-
-            <a href="#">
-                👤 Users
-            </a>
-
-            <a href="#">
-                ⚙️ Settings
-            </a>
-
 
             <!-- BOTTOM NAVIGATION -->
 
@@ -349,10 +336,6 @@
 
                 <a href="<?= site_url('student'); ?>" class="student-home">
                     🏠 Student Home
-                </a>
-
-                <a href="#">
-                    🚪 Logout
                 </a>
 
             </div>

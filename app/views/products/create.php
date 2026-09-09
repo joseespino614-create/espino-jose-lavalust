@@ -38,6 +38,8 @@
             left: 0;
             top: 0;
             bottom: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .logo {
@@ -71,6 +73,22 @@
             background: #151922;
             color: #2589ff;
             border: 1px solid #303947;
+        }
+
+        /* SIDEBAR BOTTOM */
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #292933;
+        }
+
+        .student-home {
+            color: #ffffff !important;
+        }
+
+        .student-home:hover {
+            color: #2589ff !important;
         }
 
         /* MAIN */
@@ -248,6 +266,10 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .sidebar-bottom {
+                margin-top: 20px;
+            }
         }
     </style>
 
@@ -277,21 +299,16 @@
             ➕ Add Product
         </a>
 
-        <div class="menu-title">
-            System
+
+        <!-- BOTTOM NAVIGATION -->
+
+        <div class="sidebar-bottom">
+
+            <a href="<?= site_url('student'); ?>" class="student-home">
+                🏠 Student Home
+            </a>
+
         </div>
-
-        <a href="#">
-            👤 Users
-        </a>
-
-        <a href="#">
-            ⚙️ Settings
-        </a>
-
-        <a href="#">
-            🚪 Logout
-        </a>
 
     </aside>
 
