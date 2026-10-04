@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, Globe, Server, Check, X, AlertCircle } from 'lucide-react';
+import { Settings, Globe, Check, X, AlertCircle } from 'lucide-react';
 import { getBaseApiUrl, setBaseApiUrl } from '../services/api';
 import axios from 'axios';
 
@@ -96,38 +96,23 @@ export default function ApiSettingsModal({ isOpen, onClose, onApiUrlChanged }) {
           </button>
         </div>
 
-        {/* Presets */}
+        {/* Preset */}
         <div style={{ marginBottom: '1.25rem' }}>
           <label className="form-label" style={{ marginBottom: '0.5rem', display: 'block' }}>
-            Quick Select Preset
+            API Preset
           </label>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-            <button
-              type="button"
-              onClick={() => handlePreset('http://localhost/LavaLust/api')}
-              className={`btn btn-sm ${apiUrl.includes('127.0.0.1') || apiUrl.includes('localhost') ? 'btn-primary' : 'btn-secondary'}`}
-              style={{ padding: '0.65rem', justifyContent: 'flex-start' }}
-            >
-              <Server size={15} />
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontWeight: 600 }}>Local (XAMPP)</div>
-                <div style={{ fontSize: '0.7rem', opacity: 0.8 }}>localhost/LavaLust/api</div>
-              </div>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handlePreset('https://espino-jose-lavalust-api.onrender.com/api')}
-              className={`btn btn-sm ${apiUrl.includes('onrender.com') ? 'btn-primary' : 'btn-secondary'}`}
-              style={{ padding: '0.65rem', justifyContent: 'flex-start' }}
-            >
-              <Globe size={15} />
-              <div style={{ textAlign: 'left' }}>
-                <div style={{ fontWeight: 600 }}>Render Deployed</div>
-                <div style={{ fontSize: '0.7rem', opacity: 0.8 }}>espino-jose-lavalust-api.onrender.com</div>
-              </div>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => handlePreset('https://espino-jose-lavalust-api.onrender.com/api')}
+            className={`btn btn-sm ${apiUrl.includes('onrender.com') ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '0.65rem', justifyContent: 'flex-start', width: '100%' }}
+          >
+            <Globe size={15} />
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ fontWeight: 600 }}>Render Deployed API</div>
+              <div style={{ fontSize: '0.7rem', opacity: 0.8 }}>espino-jose-lavalust-api.onrender.com/api</div>
+            </div>
+          </button>
         </div>
 
         {/* Input */}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Package, Lock, User, Eye, EyeOff, ArrowRight, ShieldCheck, Database, Server } from 'lucide-react';
-import { apiService, getBaseApiUrl } from '../services/api';
+import { Package, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import { apiService } from '../services/api';
 
 export default function Login({ onLoginSuccess, onOpenApiSettings }) {
   const [username, setUsername] = useState('admin');
@@ -9,7 +9,6 @@ export default function Login({ onLoginSuccess, onOpenApiSettings }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const currentApi = getBaseApiUrl();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -253,39 +252,7 @@ export default function Login({ onLoginSuccess, onOpenApiSettings }) {
           </div>
         </div>
 
-        {/* Target API Info */}
-        <div style={{
-          marginTop: '1.25rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          fontSize: '0.75rem',
-          color: 'var(--text-dim)'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <Server size={12} />
-            <span>Target API:</span>
-            <span style={{ color: 'var(--text-muted)', fontFamily: 'monospace' }}>
-              {currentApi.replace(/^https?:\/\//, '').slice(0, 24)}...
-            </span>
-          </div>
-          <button
-            id="btn-switch-api"
-            onClick={onOpenApiSettings}
-            type="button"
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--primary)',
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              fontSize: '0.75rem'
-            }}
-          >
-            Change
-          </button>
         </div>
-      </div>
     </div>
   );
 }
