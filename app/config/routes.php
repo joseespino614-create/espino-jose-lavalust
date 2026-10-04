@@ -78,7 +78,7 @@ $router->get('/products/delete/{id}', 'ProductController::delete')
 
 
 // Lab 6 API Routes
-$router->post('/api/login', 'ApiController::login');
+$router->post('/api', 'ApiController::login');
 $router->post('/api/logout', 'ApiController::logout');
 $router->get('/api/me', 'ApiController::me');
 
