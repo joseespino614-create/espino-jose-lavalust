@@ -1,14 +1,24 @@
 FROM php:8.3-apache
 
+# Install Node.js 20 for building React frontend
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
 WORKDIR /var/www/html
 
-# Install MySQL PDO driver
+# Install PHP MySQL PDO driver
 RUN docker-php-ext-install pdo pdo_mysql
 
+# Copy project files
 COPY . /var/www/html/
 
+# Build React frontend and copy dist output into public/
+RUN cd frontend && npm ci && npm run build && cp -r dist/. ../public/ && cd ..
+
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
+# Fix permissions for runtime directory
 RUN chown -R www-data:www-data /var/www/html/runtime
 
 EXPOSE 10000
