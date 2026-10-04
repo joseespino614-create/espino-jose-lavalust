@@ -1,8 +1,14 @@
 FROM php:8.3-apache
 
-# Install Node.js 20 for building React frontend
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
+# Build argument: set to "true" only for the lab6 service
+# Default is "false" so the old activity service stays unchanged
+ARG BUILD_FRONTEND=false
+
+# Install Node.js only when building the React frontend
+RUN if [ "$BUILD_FRONTEND" = "true" ]; then \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs; \
+fi
 
 WORKDIR /var/www/html
 
@@ -12,8 +18,10 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Copy project files
 COPY . /var/www/html/
 
-# Build React frontend and copy dist output into public/
-RUN cd frontend && npm ci && npm run build && cp -r dist/. ../public/ && cd ..
+# Build React frontend and copy to public/ only when BUILD_FRONTEND=true
+RUN if [ "$BUILD_FRONTEND" = "true" ]; then \
+    cd frontend && npm ci && npm run build && cp -r dist/. ../public/ && cd ..; \
+fi
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
