@@ -75,3 +75,30 @@ $router->post('/products/update/{id}', 'ProductController::update')
 
 $router->get('/products/delete/{id}', 'ProductController::delete')
        ->middleware('auth');
+
+
+// Lab 6 API Routes
+$router->post('/api/login', 'ApiController::login');
+$router->post('/api/logout', 'ApiController::logout');
+$router->get('/api/me', 'ApiController::me');
+
+// Products API CRUD
+$router->get('/api/products', 'ApiController::get_products');
+$router->get('/api/products/{id}', 'ApiController::get_product');
+$router->post('/api/products', 'ApiController::create_product');
+$router->put('/api/products/{id}', 'ApiController::update_product');
+$router->patch('/api/products/{id}', 'ApiController::update_product');
+$router->delete('/api/products/{id}', 'ApiController::delete_product');
+
+// Fallback POST routes for environments where PUT/DELETE are blocked
+$router->post('/api/products/update/{id}', 'ApiController::update_product');
+$router->post('/api/products/delete/{id}', 'ApiController::delete_product');
+
+
+       // Migration Routes
+$router->get('create-migration/{migration_class}', 'MigrationController::create_migration');
+$router->get('migrate', 'MigrationController::migrate');
+$router->get('rollback', 'MigrationController::rollback');
+$router->get('rollback-all', 'MigrationController::rollback_all');
+$router->get('refresh', 'MigrationController::refresh');
+$router->get('status', 'MigrationController::status');
