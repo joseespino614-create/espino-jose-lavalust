@@ -80,7 +80,16 @@ $config['environment'] = getenv('APP_ENV') ?: 'development';
 |
 */
 
-$config['base_url'] = 'https://espino-jose.onrender.com';
+if (!empty($_SERVER['HTTP_HOST'])) {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? "https://" : "http://";
+    if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false) {
+        $config['base_url'] = 'http://localhost/LavaLust';
+    } else {
+        $config['base_url'] = $protocol . $_SERVER['HTTP_HOST'];
+    }
+} else {
+    $config['base_url'] = getenv('BASE_URL') ?: 'https://espino-jose.onrender.com';
+}
 
 /*
 |--------------------------------------------------------------------------

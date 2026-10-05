@@ -44,37 +44,35 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 */
 /** @var object $router **/
 
-$router->get('/', 'StudentController::index');
+// Check if the current request is for the API service (e.g. espino-jose-lavalust-api or API_ONLY=true)
+$is_api_service = (getenv('API_ONLY') === 'true') 
+    || (isset($_SERVER['HTTP_HOST']) && strpos($_SERVER['HTTP_HOST'], 'api') !== false);
 
-$router->get('/student', 'StudentController::index');
+// Only register old student activity routes for the web service (espino-jose.onrender.com)
+if (!$is_api_service) {
+    $router->get('/', 'StudentController::index');
+    $router->get('/student', 'StudentController::index');
+    $router->get('/student/profile', 'StudentController::profile')
+           ->middleware('student');
+    $router->get('/users', 'UsersController::index');
 
-$router->get('/student/profile', 'StudentController::profile')
-       ->middleware('student');
-$router->get('/users', 'UsersController::index');
+    $router->get('/login', 'AuthController::login');
+    $router->post('/login/authenticate', 'AuthController::authenticate');
+    $router->get('/logout', 'AuthController::logout');
 
-$router->get('/login', 'AuthController::login');
-
-$router->post('/login/authenticate', 'AuthController::authenticate');
-
-$router->get('/logout', 'AuthController::logout');
-
-$router->get('/products', 'ProductController::index')
-       ->middleware('auth');
-
-$router->get('/products/create', 'ProductController::create')
-       ->middleware('auth');
-
-$router->post('/products/store', 'ProductController::store')
-       ->middleware('auth');
-
-$router->get('/products/edit/{id}', 'ProductController::edit')
-       ->middleware('auth');
-
-$router->post('/products/update/{id}', 'ProductController::update')
-       ->middleware('auth');
-
-$router->get('/products/delete/{id}', 'ProductController::delete')
-       ->middleware('auth');
+    $router->get('/products', 'ProductController::index')
+           ->middleware('auth');
+    $router->get('/products/create', 'ProductController::create')
+           ->middleware('auth');
+    $router->post('/products/store', 'ProductController::store')
+           ->middleware('auth');
+    $router->get('/products/edit/{id}', 'ProductController::edit')
+           ->middleware('auth');
+    $router->post('/products/update/{id}', 'ProductController::update')
+           ->middleware('auth');
+    $router->get('/products/delete/{id}', 'ProductController::delete')
+           ->middleware('auth');
+}
 
 
 // Lab 6 API Routes
