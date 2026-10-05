@@ -22,5 +22,8 @@ runtime/*
 .vscode/
 *.sublime-*
 
+# Frontend (separate repo)
+frontend/
+
 # OS
 Thumbs.db
