@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
-import { Package, Lock, User, Eye, EyeOff, ArrowRight } from 'lucide-react';
-import { apiService } from '../services/api';
+import { Package, Lock, User, Eye, EyeOff, ArrowRight, Settings, Globe, ChevronDown, ChevronUp, Check, AlertCircle } from 'lucide-react';
+import { apiService, getBaseApiUrl, setBaseApiUrl } from '../services/api';
+import axios from 'axios';
 
-export default function Login({ onLoginSuccess, onOpenApiSettings }) {
+const RENDER_URL = 'https://espino-jose-lavalust-api.onrender.com/api';
+
+export default function Login({ onLoginSuccess }) {
   const [username, setUsername] = useState('admin');
   const [password, setPassword] = useState('admin123');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Base URL config state
+  const [showApiConfig, setShowApiConfig] = useState(false);
+  const [apiUrl, setApiUrl] = useState(getBaseApiUrl());
+  const [testingConnection, setTestingConnection] = useState(false);
+  const [testResult, setTestResult] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +24,9 @@ export default function Login({ onLoginSuccess, onOpenApiSettings }) {
       setError('Please enter both username and password.');
       return;
     }
+
+    // Auto-save API URL before login attempt
+    setBaseApiUrl(apiUrl);
 
     try {
       setLoading(true);
@@ -45,6 +56,47 @@ export default function Login({ onLoginSuccess, onOpenApiSettings }) {
     setUsername('admin');
     setPassword('admin123');
     setError('');
+  };
+
+  const handleTestConnection = async () => {
+    try {
+      setTestingConnection(true);
+      setTestResult(null);
+      const target = apiUrl.trim().replace(/\/+$/, '');
+      const startTime = performance.now();
+      const res = await axios.get(`${target}/products`, { timeout: 8000 }).catch(err => {
+        if (err.response) return err.response;
+        throw err;
+      });
+      const latency = Math.round(performance.now() - startTime);
+
+      if (res && (res.status === 200 || res.status === 401 || res.status === 404)) {
+        setTestResult({
+          success: true,
+          message: `Connected in ${latency}ms (Status: ${res.status})`
+        });
+        // Auto-save on successful test
+        setBaseApiUrl(apiUrl);
+      } else {
+        setTestResult({
+          success: false,
+          message: `Unexpected response: HTTP ${res?.status || 'Unknown'}`
+        });
+      }
+    } catch (err) {
+      setTestResult({
+        success: false,
+        message: `Connection failed: ${err.message}`
+      });
+    } finally {
+      setTestingConnection(false);
+    }
+  };
+
+  const handleSetPreset = (url) => {
+    setApiUrl(url);
+    setBaseApiUrl(url);
+    setTestResult(null);
   };
 
   return (
@@ -199,11 +251,211 @@ export default function Login({ onLoginSuccess, onOpenApiSettings }) {
             </div>
           </div>
 
+          {/* ─── Inline Base URL Configuration ─── */}
+          <div style={{
+            marginTop: '0.75rem',
+            marginBottom: '0.75rem',
+            borderRadius: 'var(--radius-md)',
+            border: `1px solid ${showApiConfig ? 'rgba(99, 102, 241, 0.3)' : 'var(--border-subtle)'}`,
+            background: showApiConfig ? 'rgba(99, 102, 241, 0.05)' : 'rgba(255, 255, 255, 0.02)',
+            overflow: 'hidden',
+            transition: 'all 0.3s ease'
+          }}>
+            {/* Toggle Header */}
+            <button
+              type="button"
+              id="btn-toggle-api-config"
+              onClick={() => setShowApiConfig(!showApiConfig)}
+              style={{
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0.65rem 0.85rem',
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-muted)',
+                cursor: 'pointer',
+                fontSize: '0.8rem',
+                fontWeight: 500
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Settings size={14} style={{ color: '#818cf8' }} />
+                <span>API Base URL</span>
+                <span style={{
+                  fontSize: '0.65rem',
+                  padding: '0.1rem 0.4rem',
+                  borderRadius: '4px',
+                  background: apiUrl.includes('onrender.com') ? 'rgba(16, 185, 129, 0.15)' : 'rgba(251, 191, 36, 0.15)',
+                  color: apiUrl.includes('onrender.com') ? '#34d399' : '#fbbf24',
+                  fontWeight: 600
+                }}>
+                  {apiUrl.includes('onrender.com') ? 'Render' : 'Custom'}
+                </span>
+              </div>
+              {showApiConfig ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+            </button>
+
+            {/* Expanded Config Panel */}
+            {showApiConfig && (
+              <div style={{
+                padding: '0 0.85rem 0.85rem',
+                borderTop: '1px solid var(--border-subtle)'
+              }}>
+                {/* Preset Buttons */}
+                <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.75rem', marginBottom: '0.65rem' }}>
+                  <button
+                    type="button"
+                    id="btn-preset-render"
+                    onClick={() => handleSetPreset(RENDER_URL)}
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.35rem',
+                      padding: '0.45rem 0.5rem',
+                      borderRadius: '6px',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      border: apiUrl === RENDER_URL ? '1px solid rgba(99, 102, 241, 0.5)' : '1px solid var(--border-subtle)',
+                      background: apiUrl === RENDER_URL ? 'rgba(99, 102, 241, 0.2)' : 'rgba(255,255,255,0.03)',
+                      color: apiUrl === RENDER_URL ? '#a5b4fc' : 'var(--text-dim)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <Globe size={12} />
+                    Render (Production)
+                  </button>
+                  <button
+                    type="button"
+                    id="btn-preset-local"
+                    onClick={() => handleSetPreset('http://localhost/LavaLust/api')}
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.35rem',
+                      padding: '0.45rem 0.5rem',
+                      borderRadius: '6px',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      border: apiUrl.includes('localhost') ? '1px solid rgba(251, 191, 36, 0.5)' : '1px solid var(--border-subtle)',
+                      background: apiUrl.includes('localhost') ? 'rgba(251, 191, 36, 0.15)' : 'rgba(255,255,255,0.03)',
+                      color: apiUrl.includes('localhost') ? '#fbbf24' : 'var(--text-dim)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <Settings size={12} />
+                    Local (Dev)
+                  </button>
+                </div>
+
+                {/* URL Input */}
+                <div style={{ position: 'relative', marginBottom: '0.5rem' }}>
+                  <Globe size={14} color="var(--text-dim)" style={{
+                    position: 'absolute',
+                    left: '0.75rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)'
+                  }} />
+                  <input
+                    id="input-api-base-url"
+                    type="url"
+                    className="form-input"
+                    style={{
+                      paddingLeft: '2.25rem',
+                      fontSize: '0.78rem',
+                      padding: '0.55rem 0.75rem 0.55rem 2.25rem'
+                    }}
+                    placeholder="https://your-api.onrender.com/api"
+                    value={apiUrl}
+                    onChange={(e) => {
+                      setApiUrl(e.target.value);
+                      setTestResult(null);
+                    }}
+                  />
+                </div>
+
+                {/* Test Result */}
+                {testResult && (
+                  <div style={{
+                    padding: '0.4rem 0.65rem',
+                    borderRadius: '6px',
+                    background: testResult.success ? 'rgba(16, 185, 129, 0.12)' : 'rgba(244, 63, 94, 0.12)',
+                    border: `1px solid ${testResult.success ? 'rgba(16, 185, 129, 0.3)' : 'rgba(244, 63, 94, 0.3)'}`,
+                    color: testResult.success ? '#34d399' : '#fb7185',
+                    fontSize: '0.725rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    marginBottom: '0.5rem'
+                  }}>
+                    {testResult.success ? <Check size={13} /> : <AlertCircle size={13} />}
+                    <span>{testResult.message}</span>
+                  </div>
+                )}
+
+                {/* Test + Save Actions */}
+                <div style={{ display: 'flex', gap: '0.4rem' }}>
+                  <button
+                    type="button"
+                    id="btn-test-api-connection"
+                    onClick={handleTestConnection}
+                    disabled={testingConnection || !apiUrl.trim()}
+                    style={{
+                      flex: 1,
+                      padding: '0.4rem',
+                      borderRadius: '6px',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      cursor: testingConnection ? 'wait' : 'pointer',
+                      border: '1px solid rgba(6, 182, 212, 0.3)',
+                      background: 'rgba(6, 182, 212, 0.1)',
+                      color: '#67e8f9',
+                      transition: 'all 0.2s ease',
+                      opacity: testingConnection ? 0.6 : 1
+                    }}
+                  >
+                    {testingConnection ? '⏳ Testing...' : '🔌 Test Connection'}
+                  </button>
+                  <button
+                    type="button"
+                    id="btn-save-api-url"
+                    onClick={() => {
+                      setBaseApiUrl(apiUrl);
+                      setTestResult({ success: true, message: 'URL saved!' });
+                      setTimeout(() => setTestResult(null), 2000);
+                    }}
+                    style={{
+                      flex: 1,
+                      padding: '0.4rem',
+                      borderRadius: '6px',
+                      fontSize: '0.7rem',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      border: '1px solid rgba(16, 185, 129, 0.3)',
+                      background: 'rgba(16, 185, 129, 0.1)',
+                      color: '#34d399',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    💾 Save URL
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
           <button
             type="submit"
             id="btn-submit-login"
             className="btn btn-primary"
-            style={{ width: '100%', marginTop: '0.75rem', padding: '0.85rem' }}
+            style={{ width: '100%', marginTop: '0.25rem', padding: '0.85rem' }}
             disabled={loading}
           >
             {loading ? (
