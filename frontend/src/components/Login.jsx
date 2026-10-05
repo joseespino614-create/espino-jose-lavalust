@@ -329,30 +329,6 @@ export default function Login({ onLoginSuccess }) {
                     <Globe size={12} />
                     Render (Production)
                   </button>
-                  <button
-                    type="button"
-                    id="btn-preset-local"
-                    onClick={() => handleSetPreset('http://localhost/LavaLust/api')}
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.35rem',
-                      padding: '0.45rem 0.5rem',
-                      borderRadius: '6px',
-                      fontSize: '0.7rem',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      border: apiUrl.includes('localhost') ? '1px solid rgba(251, 191, 36, 0.5)' : '1px solid var(--border-subtle)',
-                      background: apiUrl.includes('localhost') ? 'rgba(251, 191, 36, 0.15)' : 'rgba(255,255,255,0.03)',
-                      color: apiUrl.includes('localhost') ? '#fbbf24' : 'var(--text-dim)',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <Settings size={12} />
-                    Local (Dev)
-                  </button>
                 </div>
 
                 {/* URL Input */}
